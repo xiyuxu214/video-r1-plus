@@ -1,0 +1,67 @@
+# Reward Weights Configuration
+# Configuration for different reward components and their weights
+
+rewards:
+  # Base correctness reward weight
+  # This is the primary reward for answer accuracy
+  correctness_weight: 1.0
+  
+  # Temporal reward weight
+  # Rewards maintaining performance with frame order changes
+  temporal_weight: 0.3
+  
+  # Selection reward weight
+  # Rewards making good frame selection decisions
+  selection_weight: 0.2
+  
+  # Robustness penalty weight
+  # Penalty for poor performance on noisy data
+  robustness_penalty_weight: 0.2
+  
+  # Length penalty weight
+  # Penalty for reasoning chain length outside optimal range
+  length_penalty_weight: 0.1
+  
+  # Selection reward components
+  selection:
+    # Base bonus for choosing clean data
+    clean_choice_bonus: 0.1
+    
+    # Bonus for smart choice (choosing better option)
+    smart_choice_bonus: 0.15
+  
+  # Length penalty configuration
+  length:
+    # Optimal length range (tokens)
+    optimal_min: 200
+    optimal_max: 512
+    
+    # Penalty strength
+    penalty_strength: 0.5
+
+# Reward function registry
+reward_functions:
+  # List of reward functions to use
+  # Options: accuracy, format, temporal, selection, robustness
+  enabled:
+    - "accuracy"
+    - "format"
+  
+  # Accuracy reward configuration
+  accuracy:
+    # Question types and their evaluation methods
+    question_types:
+      multiple_choice: "exact_match"
+      numerical: "numerical_match"
+      OCR: "word_error_rate"
+      free_form: "rouge_score"
+      regression: "relative_error"
+  
+  # Format reward configuration
+  format:
+    # Pattern to match for format reward
+    pattern: "<think>.*?</think>\\s*<answer>.*?</answer>"
+    
+    # Whether to use strict matching
+    strict: false
+

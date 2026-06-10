@@ -1,0 +1,24 @@
+# Main Hydra Configuration File
+# This is the entry point for Hydra configuration
+
+# Default configuration to use
+defaults:
+  - experiment: base
+  - _self_
+
+# Hydra configuration
+hydra:
+  run:
+    dir: ./outputs/${experiment.name}
+  
+  sweep:
+    dir: ./outputs/multirun/${now:%Y-%m-%d_%H-%M-%S}
+    subdir: ${experiment.name}
+  
+  job:
+    chdir: false
+    name: ${experiment.name}
+
+# Command line overrides (can be overridden via command line)
+# Example: python train.py experiment=ablation/no_selection_policy model.name_or_path=Qwen/Qwen2-VL-7B
+

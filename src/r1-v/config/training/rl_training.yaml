@@ -1,0 +1,122 @@
+# Reinforcement Learning Training Configuration
+# Configuration for Robust-T-GRPO training process
+
+# Training arguments
+training:
+  # Output directory for checkpoints and logs
+  output_dir: "./outputs/robust-grpo"
+  
+  # Run name (for wandb/mlflow)
+  run_name: "robust-grpo-experiment"
+  
+  # Number of training epochs
+  num_train_epochs: 1
+  
+  # Maximum number of training steps (overrides num_train_epochs if > 0)
+  max_steps: -1
+  
+  # Batch size per device
+  per_device_train_batch_size: 1
+  
+  # Batch size per device for evaluation
+  per_device_eval_batch_size: 1
+  
+  # Gradient accumulation steps
+  gradient_accumulation_steps: 4
+  
+  # Learning rate
+  learning_rate: 1.0e-6
+  
+  # Learning rate scheduler type
+  # Options: linear, cosine, cosine_with_restarts, polynomial, constant, constant_with_warmup
+  lr_scheduler_type: "cosine"
+  
+  # Number of warmup steps
+  warmup_steps: 100
+  
+  # Warmup ratio (if warmup_steps not set)
+  warmup_ratio: 0.1
+  
+  # Weight decay
+  weight_decay: 0.01
+  
+  # Maximum gradient norm for clipping
+  max_grad_norm: 1.0
+  
+  # Beta parameter for KL penalty in GRPO
+  beta: 0.04
+  
+  # Mixed precision training
+  # Options: fp16, bf16, no
+  fp16: false
+  bf16: true
+  
+  # Gradient checkpointing (save memory)
+  gradient_checkpointing: true
+  
+  # Evaluation strategy
+  # Options: no, steps, epoch
+  eval_strategy: "no"
+  
+  # Evaluation steps (if eval_strategy is "steps")
+  eval_steps: 500
+  
+  # Save strategy
+  # Options: no, steps, epoch
+  save_strategy: "steps"
+  
+  # Save steps (if save_strategy is "steps")
+  save_steps: 500
+  
+  # Number of checkpoints to keep
+  save_total_limit: 3
+  
+  # Logging strategy
+  # Options: no, steps, epoch
+  logging_strategy: "steps"
+  
+  # Logging steps
+  logging_steps: 10
+  
+  # Report to (wandb, tensorboard, etc.)
+  report_to:
+    - "wandb"
+  
+  # Random seed
+  seed: 42
+  
+  # Data collator configuration
+  data_collator: null
+  
+  # Whether to remove unused columns
+  remove_unused_columns: false
+  
+  # Whether to load best model at end
+  load_best_model_at_end: false
+  
+  # Metric for best model (if load_best_model_at_end is true)
+  metric_for_best_model: "eval/accuracy"
+  
+  # Greater is better for metric
+  greater_is_better: true
+
+# Temporal GRPO configuration
+temporal:
+  # Whether to use temporal GRPO (ordered vs shuffled comparison)
+  enabled: true
+  
+  # Number of shuffled generations (half of num_generations)
+  shuffled_num_generations: null  # Auto: num_generations // 2
+
+# Length control configuration
+length_control:
+  # Whether to use length reward
+  enabled: true
+  
+  # Optimal length range
+  optimal_min: 200
+  optimal_max: 512
+  
+  # Length penalty strength
+  penalty_strength: 0.5
+

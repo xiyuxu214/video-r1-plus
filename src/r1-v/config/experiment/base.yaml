@@ -1,0 +1,124 @@
+# Base Experiment Configuration
+# This is the main configuration file that combines all other configs
+
+# Defaults: specify which configs to use
+# These reference configs from model/, training/, and data/ directories
+defaults:
+  - model: robust_grpo
+  - training: rl_training
+  - data: noise_schedule
+  - _self_
+
+# Experiment metadata
+experiment:
+  # Experiment name
+  name: "robust-grpo-base"
+  
+  # Project name (for wandb/mlflow)
+  project: "robust-t-grpo"
+  
+  # Experiment description
+  description: "Base Robust-T-GRPO experiment with default settings"
+  
+  # Tags for experiment tracking
+  tags:
+    - "robust"
+    - "grpo"
+    - "video"
+    - "base"
+  
+  # Output directory
+  output_dir: "./experiments/robust-grpo-base"
+  
+  # Whether to use experiment tracker
+  use_tracker: true
+  
+  # Experiment tracker configuration
+  tracker:
+    # Whether to use WandB
+    use_wandb: true
+    
+    # Whether to use MLflow
+    use_mlflow: false
+    
+    # WandB project name (overrides experiment.project if set)
+    wandb_project: null
+    
+    # MLflow tracking URI
+    mlflow_tracking_uri: null
+
+# Distributed training configuration
+distributed:
+  # Distributed backend
+  # Options: deepspeed, ddp, no
+  backend: "deepspeed"
+  
+  # DeepSpeed config file path
+  deepspeed_config: "./local_scripts/zero3.json"
+  
+  # Number of GPUs per node
+  num_gpus: 8
+  
+  # Number of nodes
+  num_nodes: 1
+  
+  # Master address
+  master_addr: "127.0.0.1"
+  
+  # Master port
+  master_port: 29500
+
+# Evaluation configuration
+evaluation:
+  # Whether to run evaluation
+  enabled: true
+  
+  # Evaluation benchmarks
+  benchmarks:
+    - "vsibench"
+    - "videommmu"
+    - "mvbench"
+  
+  # Maximum samples per benchmark (null for all)
+  max_samples_per_benchmark: null
+  
+  # Evaluation batch size
+  batch_size: 8
+
+# Logging configuration
+logging:
+  # Log level
+  # Options: debug, info, warning, error
+  level: "info"
+  
+  # Log file path (null for stdout only)
+  log_file: null
+  
+  # Whether to log to file
+  log_to_file: false
+
+# Checkpointing configuration
+checkpointing:
+  # Whether to save checkpoints
+  save_checkpoints: true
+  
+  # Checkpoint directory
+  checkpoint_dir: "${experiment.output_dir}/checkpoints"
+  
+  # Whether to resume from checkpoint
+  resume_from_checkpoint: null
+  
+  # Whether to save only model weights
+  save_only_model: false
+
+# Reproducibility configuration
+reproducibility:
+  # Random seed
+  seed: 42
+  
+  # Whether to set deterministic operations
+  deterministic: true
+  
+  # Whether to use benchmark mode (faster but non-deterministic)
+  benchmark: false
+

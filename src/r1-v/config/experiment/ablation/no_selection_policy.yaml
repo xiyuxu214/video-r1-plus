@@ -1,0 +1,22 @@
+# Ablation: No Selection Policy
+# Experiment without selection augmented policy
+
+defaults:
+  - ../base
+  - _self_
+
+experiment:
+  name: "robust-grpo-no-selection"
+  description: "Ablation: Robust-T-GRPO without selection policy"
+  tags:
+    - "robust"
+    - "grpo"
+    - "video"
+    - "ablation"
+    - "no-selection"
+  output_dir: "./experiments/robust-grpo-no-selection"
+
+# Override selection policy config
+selection_policy:
+  enabled: false
+

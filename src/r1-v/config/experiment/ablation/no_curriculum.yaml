@@ -1,0 +1,27 @@
+# Ablation: No Curriculum Learning
+# Experiment without curriculum learning (fixed noise level)
+
+defaults:
+  - ../base
+  - _self_
+
+experiment:
+  name: "robust-grpo-no-curriculum"
+  description: "Ablation: Robust-T-GRPO without curriculum learning"
+  tags:
+    - "robust"
+    - "grpo"
+    - "video"
+    - "ablation"
+    - "no-curriculum"
+  output_dir: "./experiments/robust-grpo-no-curriculum"
+
+# Override curriculum learning config
+curriculum:
+  enabled: false
+
+# Use fixed noise level
+adaptive_noise:
+  noise_schedule_type: "constant"
+  initial_noise_scale: 0.3  # Fixed noise level
+

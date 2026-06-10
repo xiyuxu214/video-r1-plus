@@ -1,0 +1,45 @@
+# Selection Augmented Policy Configuration
+# Configuration for the frame selection policy network
+# This config can be selected via: model/selection_policy=selection_policy
+
+selection_policy:
+  # Whether to use selection augmented policy
+  enabled: true
+  
+  # Vision encoder configuration
+  vision_encoder:
+    # CLIP vision encoder name
+    # Options: ViT-B/32, ViT-L/14, ViT-B/16, etc.
+    name: "ViT-B/32"
+    
+    # Whether to freeze vision encoder weights
+    freeze: true
+    
+    # Whether to detach vision features (save memory)
+    detach_features: true
+  
+  # Selection head configuration
+  selection_head:
+    # Hidden dimension for MLP
+    hidden_dim: 512
+    
+    # Dropout probability
+    dropout: 0.1
+    
+    # Selection temperature (for softmax)
+    temperature: 1.0
+    
+    # Whether to use Gumbel-Softmax for differentiable sampling
+    use_gumbel_softmax: false
+  
+  # Selection reward configuration
+  reward:
+    # Weight for selection reward in total reward
+    weight: 0.2
+    
+    # Base bonus for choosing clean data
+    clean_choice_bonus: 0.1
+    
+    # Bonus for smart choice (choosing better option)
+    smart_choice_bonus: 0.15
+

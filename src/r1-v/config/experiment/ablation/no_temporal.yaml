@@ -1,0 +1,26 @@
+# Ablation: No Temporal GRPO
+# Experiment without temporal comparison (only clean vs noisy)
+
+defaults:
+  - ../base
+  - _self_
+
+experiment:
+  name: "robust-grpo-no-temporal"
+  description: "Ablation: Robust-T-GRPO without temporal comparison"
+  tags:
+    - "robust"
+    - "grpo"
+    - "video"
+    - "ablation"
+    - "no-temporal"
+  output_dir: "./experiments/robust-grpo-no-temporal"
+
+# Override temporal config
+temporal:
+  enabled: false
+
+# Adjust reward weights (remove temporal reward)
+rewards:
+  temporal_weight: 0.0
+

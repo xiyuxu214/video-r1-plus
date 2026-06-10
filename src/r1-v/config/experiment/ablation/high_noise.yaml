@@ -1,0 +1,27 @@
+# Ablation: High Noise Level
+# Experiment with higher noise levels to test robustness
+
+defaults:
+  - ../base
+  - _self_
+
+experiment:
+  name: "robust-grpo-high-noise"
+  description: "Ablation: Robust-T-GRPO with high noise levels"
+  tags:
+    - "robust"
+    - "grpo"
+    - "video"
+    - "ablation"
+    - "high-noise"
+  output_dir: "./experiments/robust-grpo-high-noise"
+
+# Override noise schedule with higher noise
+curriculum:
+  initial_noise: 0.1
+  max_noise: 0.8  # Higher maximum noise
+
+adaptive_noise:
+  initial_noise_scale: 0.2
+  max_noise_scale: 0.8  # Higher maximum noise
+

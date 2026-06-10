@@ -1,0 +1,73 @@
+# Robust-T-GRPO Model Architecture Configuration
+# This configuration defines the model architecture and initialization parameters
+
+# Model base configuration
+model:
+  # Model name or path (HuggingFace model ID or local path)
+  name_or_path: "Qwen/Qwen2-VL-7B-Instruct"
+  
+  # Model revision (branch, tag, or commit hash)
+  revision: "main"
+  
+  # Torch data type for model weights
+  # Options: float32, float16, bfloat16, auto
+  torch_dtype: "bfloat16"
+  
+  # Attention implementation
+  # Options: flash_attention_2, sdpa, eager
+  attn_implementation: "flash_attention_2"
+  
+  # Model initialization kwargs (additional parameters for model loading)
+  init_kwargs: {}
+
+# Vision processing configuration
+vision:
+  # Maximum number of pixels for images/videos
+  max_pixels: 12845056
+  
+  # Minimum number of pixels for images/videos
+  min_pixels: 3136
+  
+  # Image factor for resizing
+  image_factor: 28
+
+# Generation configuration
+generation:
+  # Maximum prompt length (tokens)
+  max_prompt_length: 16384
+  
+  # Maximum completion length (tokens)
+  max_completion_length: 768
+  
+  # Number of generations per prompt (G in GRPO paper)
+  num_generations: 8
+  
+  # Generation temperature
+  temperature: 1.0
+  
+  # Top-p sampling parameter
+  top_p: 0.95
+  
+  # Do sample (if false, uses greedy decoding)
+  do_sample: true
+
+# Reference model configuration
+reference_model:
+  # Whether to use a separate reference model
+  # If false, uses the base model with adapter disabled (for PEFT)
+  use_separate_ref_model: true
+  
+  # Reference model initialization kwargs
+  init_kwargs: {}
+
+# PEFT (Parameter-Efficient Fine-Tuning) configuration
+peft:
+  # Whether to use PEFT
+  enabled: false
+  
+  # PEFT type: lora, qlora, etc.
+  peft_type: "lora"
+  
+  # PEFT configuration (will be merged from peft_config if provided)
+  config: {}
+
